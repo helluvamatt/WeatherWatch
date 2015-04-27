@@ -4,6 +4,7 @@ static Window *window;
 TextLayer *text_date_layer;
 TextLayer *text_time_layer;
 TextLayer *text_temp_layer;
+TextLayer *text_cond_layer;
 GFont *font49;
 GFont *font39;
 GFont *font21;
@@ -29,6 +30,7 @@ const int IMAGE_RESOURCE_IDS[NUMBER_OF_IMAGES] = {
 enum {
   WEATHER_TEMPERATURE_F,
   WEATHER_TEMPERATURE_C,
+  WEATHER_CONDITIONS,
   WEATHER_ICON,
   WEATHER_ERROR,
   LOCATION
@@ -39,10 +41,15 @@ enum {
 void in_received_handler(DictionaryIterator *received, void *context) {
   // incoming message received
   Tuple *temperature = dict_find(received, WEATHER_TEMPERATURE_F);
+  Tuple *conditions = dict_find(received, WEATHER_CONDITIONS);
   Tuple *icon = dict_find(received, WEATHER_ICON);
 
   if (temperature) {
     text_layer_set_text(text_temp_layer, temperature->value->cstring);
+  }
+
+  if (conditions) {
+    text_layer_set_text(text_cond_layer, conditions->value->cstring);
   }
 
   if (icon) {
@@ -92,6 +99,13 @@ static void window_load(Window *window) {
   text_layer_set_background_color(text_temp_layer, GColorClear);
   text_layer_set_font(text_temp_layer, font39);
   layer_add_child(window_layer, text_layer_get_layer(text_temp_layer));
+
+  // create conditions layer
+  text_cond_layer = text_layer_create(GRect(x, y, w, h));
+  text_layer_set_text_color(text_cond_layer, GColorWhite);
+  text_layer_set_background_color(text_cond_layer, GColorClear);
+  text_layer_set_font(text_cond_layer, font39);
+  layer_add_child(window_layer, text_layer_get_layer(text_cond_layer));
 }
 
 static void window_unload(Window *window) {
@@ -99,6 +113,7 @@ static void window_unload(Window *window) {
   text_layer_destroy(text_date_layer);
   text_layer_destroy(text_time_layer);
   text_layer_destroy(text_temp_layer);
+  text_layer_destroy(text_cond_layer);
 
   // destroy the image layers
   gbitmap_destroy(image);
