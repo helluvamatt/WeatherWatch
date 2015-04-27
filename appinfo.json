@@ -1,98 +1,100 @@
 {
-  "uuid": "455367bd-36cc-4f1d-8002-ff84b2356582",
-  "shortName": "WeatherWatch",
-  "longName": "WeatherWatch",
-  "companyName": "SCHNEENET",
-  "versionCode": 1,
-  "versionLabel": "1.0",
-  "watchapp": {
-    "watchface": true
-  },
-  "appKeys": {
-    "temperature_f": 0,
-    "temperature_c": 1,
-    "conditions":    2,
-    "icon":          3,
-    "error":         4,
-    "location":      5
-  },
-  "resources": {
-    "media": [
-      {
-        "name": "CLEAR_DAY",
-        "type": "png",
-        "file": "images/clear-day.png"
-      },
-      {
-        "name": "CLEAR_NIGHT",
-        "type": "png",
-        "file": "images/clear-night.png"
-      },
-      {
-        "name": "CLOUDY",
-        "type": "png",
-        "file": "images/cloudy.png"
-      },
-      {
-        "name": "ERROR",
-        "type": "png",
-        "file": "images/error.png"
-      },
-      {
-        "name": "FOG",
-        "type": "png",
-        "file": "images/fog.png"
-      },
-      {
-        "name": "PARTLY_CLOUDY_DAY",
-        "type": "png",
-        "file": "images/partly-cloudy-day.png"
-      },
-      {
-        "name": "PARTLY_CLOUDY_NIGHT",
-        "type": "png",
-        "file": "images/partly-cloudy-night.png"
-      },
-      {
-        "name": "RAIN",
-        "type": "png",
-        "file": "images/rain.png"
-      },
-      {
-        "name": "SLEET",
-        "type": "png",
-        "file": "images/sleet.png"
-      },
-      {
-        "name": "SNOW",
-        "type": "png",
-        "file": "images/snow.png"
-      },
-      {
-        "name": "WIND",
-        "type": "png",
-        "file": "images/wind.png"
-      },
-      {
-        "type": "font",
-        "name": "FONT_ROBOTO_CONDENSED_21",
-        "file": "fonts/Roboto-Condensed.ttf"
-      },
-      {
-        "characterRegex": "[0-9:]",
-        "type": "font",
-        "name": "FONT_ROBOTO_BOLD_SUBSET_49",
-        "file": "fonts/Roboto-Bold.ttf"
-      },
-      {
-        "characterRegex": "[0-9:]",
-        "type": "font",
-        "name": "FONT_ROBOTO_BOLD_SUBSET_39",
-        "file": "fonts/Roboto-Bold.ttf"
-      }
-    ]
-  },
-  "capabilities": [
-    "location"
-  ]
+    "appKeys": {
+        "conditions": 2,
+        "error": 4,
+        "icon": 3,
+        "location": 5,
+        "temperature_c": 1,
+        "temperature_f": 0
+    },
+    "capabilities": [
+        "location"
+    ],
+    "companyName": "SCHNEENET",
+    "longName": "WeatherWatch",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "characterRegex": "[0-9:]",
+                "file": "fonts/Roboto-Bold.ttf",
+                "name": "FONT_ROBOTO_BOLD_SUBSET_39",
+                "type": "font"
+            },
+            {
+                "characterRegex": "[0-9:]",
+                "file": "fonts/Roboto-Bold.ttf",
+                "name": "FONT_ROBOTO_BOLD_SUBSET_49",
+                "type": "font"
+            },
+            {
+                "file": "fonts/Roboto-Condensed.ttf",
+                "name": "FONT_ROBOTO_CONDENSED_21",
+                "type": "font"
+            },
+            {
+                "file": "images/wind.png",
+                "name": "WIND",
+                "type": "png"
+            },
+            {
+                "file": "images/snow.png",
+                "name": "SNOW",
+                "type": "png"
+            },
+            {
+                "file": "images/sleet.png",
+                "name": "SLEET",
+                "type": "png"
+            },
+            {
+                "file": "images/rain.png",
+                "name": "RAIN",
+                "type": "png"
+            },
+            {
+                "file": "images/partly-cloudy-night.png",
+                "name": "PARTLY_CLOUDY_NIGHT",
+                "type": "png"
+            },
+            {
+                "file": "images/partly-cloudy-day.png",
+                "name": "PARTLY_CLOUDY_DAY",
+                "type": "png"
+            },
+            {
+                "file": "images/fog.png",
+                "name": "FOG",
+                "type": "png"
+            },
+            {
+                "file": "images/error.png",
+                "name": "ERROR",
+                "type": "png"
+            },
+            {
+                "file": "images/cloudy.png",
+                "name": "CLOUDY",
+                "type": "png"
+            },
+            {
+                "file": "images/clear-night.png",
+                "name": "CLEAR_NIGHT",
+                "type": "png"
+            },
+            {
+                "file": "images/clear-day.png",
+                "name": "CLEAR_DAY",
+                "type": "png"
+            }
+        ]
+    },
+    "sdkVersion": "2",
+    "shortName": "WeatherWatch",
+    "uuid": "455367bd-36cc-4f1d-8002-ff84b2356582",
+    "versionCode": 1,
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": true
+    }
 }

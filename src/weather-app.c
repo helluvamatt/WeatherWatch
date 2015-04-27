@@ -5,6 +5,7 @@ TextLayer *text_date_layer;
 TextLayer *text_time_layer;
 TextLayer *text_temp_layer;
 TextLayer *text_cond_layer;
+TextLayer *text_city_layer;
 GFont *font49;
 GFont *font39;
 GFont *font21;
@@ -28,20 +29,19 @@ const int IMAGE_RESOURCE_IDS[NUMBER_OF_IMAGES] = {
 };
 
 enum {
-  WEATHER_TEMPERATURE_F,
-  WEATHER_TEMPERATURE_C,
+  WEATHER_TEMPERATURE,
   WEATHER_CONDITIONS,
+  WEATHER_CITY,
   WEATHER_ICON,
   WEATHER_ERROR,
   LOCATION
 };
 
-
-
 void in_received_handler(DictionaryIterator *received, void *context) {
   // incoming message received
-  Tuple *temperature = dict_find(received, WEATHER_TEMPERATURE_F);
+  Tuple *temperature = dict_find(received, WEATHER_TEMPERATURE);
   Tuple *conditions = dict_find(received, WEATHER_CONDITIONS);
+  Tuple *city = dict_find(received, WEATHER_CITY);
   Tuple *icon = dict_find(received, WEATHER_ICON);
 
   if (temperature) {
