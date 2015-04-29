@@ -1,15 +1,4 @@
 {
-    "appKeys": {
-        "conditions": 2,
-        "error": 4,
-        "icon": 3,
-        "location": 5,
-        "temperature_c": 1,
-        "temperature_f": 0
-    },
-    "capabilities": [
-        "location"
-    ],
     "companyName": "SCHNEENET",
     "longName": "WeatherWatch",
     "projectType": "native",
