@@ -6,7 +6,7 @@ TextLayer *text_time_layer;
 TextLayer *text_temp_layer;
 TextLayer *text_cond_layer;
 TextLayer *text_city_layer;
-TextLayer *text_icon_layer;
+BitmapLayer *icon_layer;
 GFont *font_time;
 GFont *font_temp;
 GFont *font_large;
@@ -17,13 +17,53 @@ GFont *icons;
 static AppSync s_sync;
 static uint8_t *s_sync_buffer;
 
-static char icon_buffer[2];
-
 #define WEATHER_TEMPERATURE 0
 #define WEATHER_CONDITIONS 1
 #define WEATHER_CITY 2
 #define WEATHER_ICON 3
 #define STATUS 4
+
+static GBitmap *icon_bitmap = NULL;
+
+#define FIRST_ICON_VALUE 'a'
+const int ICON_RES_IDS[] = {
+
+		RESOURCE_ID_IC_REFRESH,				// a
+		RESOURCE_ID_IC_ERROR,				// b
+		RESOURCE_ID_IC_CLEAR_DAY,			// c
+		RESOURCE_ID_IC_CLEAR_NIGHT,			// d
+		RESOURCE_ID_IC_FOG,					// e
+		RESOURCE_ID_IC_WIND,				// f
+		RESOURCE_ID_IC_COLD,				// g
+		RESOURCE_ID_IC_PARTLY_CLOUDY_DAY,	// h
+		RESOURCE_ID_IC_PARTLY_CLOUDY_NIGHT,	// i
+		RESOURCE_ID_IC_FOG_ALT,				// j
+		RESOURCE_ID_IC_CLOUDY,				// k
+		RESOURCE_ID_IC_STORM,				// l
+		RESOURCE_ID_IC_LIGHT_RAIN,			// m
+		RESOURCE_ID_IC_RAIN,				// n
+		RESOURCE_ID_IC_SNOW,				// o
+		RESOURCE_ID_IC_LIGHT_SNOW,			// p
+		RESOURCE_ID_IC_HEAVY_SNOW,			// q
+		RESOURCE_ID_IC_HAIL_SLEET,			// r
+		RESOURCE_ID_IC_MOSTLY_CLOUDY,		// s
+		RESOURCE_ID_IC_HEAVY_STORM,			// t
+		RESOURCE_ID_IC_HOT,					// u
+		RESOURCE_ID_IC_NA,					// v
+
+};
+
+// char to icon
+static void set_icon(char c)
+{
+	if (icon_bitmap != NULL)
+	{
+		gbitmap_destroy(icon_bitmap);
+	}
+
+	icon_bitmap = gbitmap_create_with_resource(ICON_RES_IDS[c-FIRST_ICON_VALUE]);
+	bitmap_layer_set_bitmap(icon_layer, icon_bitmap);
+}
 
 static void sync_changed_handler(const uint32_t key, const Tuple *new_tuple, const Tuple *old_tuple, void *context)
 {
@@ -39,9 +79,7 @@ static void sync_changed_handler(const uint32_t key, const Tuple *new_tuple, con
 			text_layer_set_text(text_city_layer, new_tuple->value->cstring);
 			break;
 		case WEATHER_ICON:
-			snprintf(icon_buffer, 2, "%c", (char) new_tuple->value->uint8);
-			APP_LOG(APP_LOG_LEVEL_INFO, "icon_buffer is now \"%s\"", icon_buffer);
-			text_layer_set_text(text_icon_layer, icon_buffer);
+			set_icon((char) new_tuple->value->uint8);
 			break;
 	}
 }
@@ -50,7 +88,7 @@ static void sync_error_handler(DictionaryResult dict_error, AppMessageResult app
 {
 	APP_LOG(APP_LOG_LEVEL_ERROR, "sync_error_handler() called: dict_error = %d  app_message_error = %d", dict_error, app_message_error);
 	text_layer_set_text(text_cond_layer, "Error");
-	text_layer_set_text(text_icon_layer, "b");
+	set_icon('b');
 }
 
 static void window_load(Window *window)
@@ -62,7 +100,6 @@ static void window_load(Window *window)
 	font_large = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_24));
 	font_normal = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_21));
 	font_small = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_18));
-	icons = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ICONS_48));
 
 	// create date layer - this is where the date goes
 	text_date_layer = text_layer_create(GRect(0, 0, 144, 24));
@@ -102,12 +139,11 @@ static void window_load(Window *window)
 	layer_add_child(window_layer, text_layer_get_layer(text_city_layer));
 
 	// create icon layer
-	text_icon_layer = text_layer_create(GRect(0, 88, 60, 60));
-	text_layer_set_text_color(text_icon_layer, GColorBlack);
-	text_layer_set_text_alignment(text_icon_layer, GTextAlignmentCenter);
-	text_layer_set_background_color(text_icon_layer, GColorWhite);
-	text_layer_set_font(text_icon_layer, icons);
-	layer_add_child(window_layer, text_layer_get_layer(text_icon_layer));
+	icon_layer = bitmap_layer_create(GRect(0, 88, 60, 60));
+	bitmap_layer_set_alignment(icon_layer, GAlignCenter);
+	bitmap_layer_set_background_color(icon_layer, GColorWhite);
+	layer_add_child(window_layer, bitmap_layer_get_layer(icon_layer));
+	set_icon('a');
 }
 
 static void window_unload(Window *window)
@@ -118,7 +154,7 @@ static void window_unload(Window *window)
 	text_layer_destroy(text_temp_layer);
 	text_layer_destroy(text_cond_layer);
 	text_layer_destroy(text_city_layer);
-	text_layer_destroy(text_icon_layer);
+	bitmap_layer_destroy(icon_layer);
 
 	// unload the fonts
 	fonts_unload_custom_font(font_time);
