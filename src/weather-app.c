@@ -36,39 +36,44 @@ const int IMAGE_RESOURCE_IDS[NUMBER_OF_IMAGES] = {
 #define WEATHER_CITY 2
 #define WEATHER_ICON 3
 
+static void set_image_icon(int resource)
+{
+	if (image != NULL)
+	{
+		gbitmap_destroy(image);
+		layer_remove_from_parent(bitmap_layer_get_layer(image_layer));
+		bitmap_layer_destroy(image_layer);
+	}
+	Layer *window_layer = window_get_root_layer(window);
+	image = gbitmap_create_with_resource(resource);
+	image_layer = bitmap_layer_create(GRect(10, 92, 60, 60));
+	bitmap_layer_set_bitmap(image_layer, image);
+	layer_add_child(window_layer, bitmap_layer_get_layer(image_layer));
+}
+
 static void sync_changed_handler(const uint32_t key, const Tuple *new_tuple, const Tuple *old_tuple, void *context)
 {
 	switch (key)
 	{
-	case WEATHER_TEMPERATURE:
-		text_layer_set_text(text_temp_layer, new_tuple->value->cstring);
-		break;
-	case WEATHER_CONDITIONS:
-		text_layer_set_text(text_cond_layer, new_tuple->value->cstring);
-		break;
-	case WEATHER_CITY:
-		text_layer_set_text(text_city_layer, new_tuple->value->cstring);
-		break;
-	case WEATHER_ICON:
-		// figure out which resource to use
-		int8_t id = new_tuple->value->int8;
-		if (image != NULL) {
-			gbitmap_destroy(image);
-			layer_remove_from_parent(bitmap_layer_get_layer(image_layer));
-			bitmap_layer_destroy(image_layer);
-		}
-		Layer *window_layer = window_get_root_layer(window);
-		image = gbitmap_create_with_resource(IMAGE_RESOURCE_IDS[id]);
-		image_layer = bitmap_layer_create(GRect(10, 92, 60, 60));
-		bitmap_layer_set_bitmap(image_layer, image);
-		layer_add_child(window_layer, bitmap_layer_get_layer(image_layer));
-		break;
+		case WEATHER_TEMPERATURE:
+			text_layer_set_text(text_temp_layer, new_tuple->value->cstring);
+			break;
+		case WEATHER_CONDITIONS:
+			text_layer_set_text(text_cond_layer, new_tuple->value->cstring);
+			break;
+		case WEATHER_CITY:
+			text_layer_set_text(text_city_layer, new_tuple->value->cstring);
+			break;
+		case WEATHER_ICON:
+			set_image_icon(IMAGE_RESOURCE_IDS[new_tuple->value->int8]);
+			break;
 	}
 }
 
 static void sync_error_handler(DictionaryResult dict_error, AppMessageResult app_message_error, void *context)
 {
-	// TODO Need error handling logic
+	text_layer_set_text(text_cond_layer, "Error");
+	set_image_icon(RESOURCE_ID_ERROR);
 }
 
 static void window_load(Window *window)
@@ -166,6 +171,15 @@ void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed)
 
 static void init(void)
 {
+	// create window
+	window = window_create();
+	window_set_background_color(window, GColorBlack);
+	window_set_window_handlers(window, (WindowHandlers) {
+		.load = window_load,
+		.unload = window_unload,
+	});
+	window_stack_push(window, true);
+
 	// init app message
 	app_message_open(app_message_outbox_size_maximum(), app_message_inbox_size_maximum());
 
@@ -178,19 +192,10 @@ static void init(void)
 	};
 
 	// Allocate sync buffer based on estimate
-	s_sync_buffer = (uint8_t*) malloc(dict_calc_buffer_size_from_tuplets(initial_values, 4));
+	s_sync_buffer = (uint8_t*) malloc(dict_calc_buffer_size_from_tuplets(initial_values, 4) * 2);
 
 	// Begin using AppSync
 	app_sync_init(&s_sync, s_sync_buffer, sizeof(s_sync_buffer), initial_values, ARRAY_LENGTH(initial_values), sync_changed_handler, sync_error_handler, NULL);
-
-	// create window
-	window = window_create();
-	window_set_background_color(window, GColorBlack);
-	window_set_window_handlers(window, (WindowHandlers) {
-		.load = window_load,
-		.unload = window_unload,
-	});
-	window_stack_push(window, true);
 
 	// subscribe to update every minute
 	tick_timer_service_subscribe(MINUTE_UNIT, handle_minute_tick);
@@ -199,7 +204,7 @@ static void init(void)
 static void deinit(void)
 {
 	tick_timer_service_unsubscribe();
-	app_message_deregister_callbacks();
+	app_sync_deinit(&s_sync);
 	window_stack_remove(window, true);
 	window_destroy(window);
 }
