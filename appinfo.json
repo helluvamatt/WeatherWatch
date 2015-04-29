@@ -22,66 +22,17 @@
                 "type": "font"
             },
 			{
-				"characterRegex": "[\ue801-\ue82e]",
-				"file": "fonts/meteocons.ttf",
-				"name": "FONT_METEOCONS_48",
+				"characterRegex": "[a-r]",
+				"file": "fonts/icons.ttf",
+				"name": "FONT_ICONS_48",
 				"type": "font"
 			},
-            {
-                "file": "images/wind.png",
-                "name": "WIND",
-                "type": "png"
-            },
-            {
-                "file": "images/snow.png",
-                "name": "SNOW",
-                "type": "png"
-            },
-            {
-                "file": "images/sleet.png",
-                "name": "SLEET",
-                "type": "png"
-            },
-            {
-                "file": "images/rain.png",
-                "name": "RAIN",
-                "type": "png"
-            },
-            {
-                "file": "images/partly-cloudy-night.png",
-                "name": "PARTLY_CLOUDY_NIGHT",
-                "type": "png"
-            },
-            {
-                "file": "images/partly-cloudy-day.png",
-                "name": "PARTLY_CLOUDY_DAY",
-                "type": "png"
-            },
-            {
-                "file": "images/fog.png",
-                "name": "FOG",
-                "type": "png"
-            },
-            {
-                "file": "images/error.png",
-                "name": "ERROR",
-                "type": "png"
-            },
-            {
-                "file": "images/cloudy.png",
-                "name": "CLOUDY",
-                "type": "png"
-            },
-            {
-                "file": "images/clear-night.png",
-                "name": "CLEAR_NIGHT",
-                "type": "png"
-            },
-            {
-                "file": "images/clear-day.png",
-                "name": "CLEAR_DAY",
-                "type": "png"
-            }
+			{
+				"file": "images/icon.png",
+				"name": "APP_ICON",
+				"menuIcon": true,
+				"type": "png"
+			}
         ]
     },
     "sdkVersion": "2",

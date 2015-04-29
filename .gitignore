@@ -37,3 +37,7 @@ local.properties
 
 # TeXlipse plugin
 .texlipse
+
+# Pebble things
+.lock-waf_linux2_build
+Debug/

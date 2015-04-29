@@ -6,53 +6,26 @@ TextLayer *text_time_layer;
 TextLayer *text_temp_layer;
 TextLayer *text_cond_layer;
 TextLayer *text_city_layer;
+TextLayer *text_icon_layer;
 GFont *font49;
 GFont *font39;
 GFont *font21;
+GFont *icons;
 
 static AppSync s_sync;
 static uint8_t *s_sync_buffer;
 
-#define NUMBER_OF_IMAGES 11
-static GBitmap *image = NULL;
-static BitmapLayer *image_layer;
-
-const int IMAGE_RESOURCE_IDS[NUMBER_OF_IMAGES] = {
-	RESOURCE_ID_ERROR,
-	RESOURCE_ID_CLEAR_DAY,
-	RESOURCE_ID_CLEAR_NIGHT,
-	RESOURCE_ID_CLOUDY,
-	RESOURCE_ID_FOG,
-	RESOURCE_ID_PARTLY_CLOUDY_DAY,
-	RESOURCE_ID_PARTLY_CLOUDY_NIGHT,
-	RESOURCE_ID_RAIN,
-	RESOURCE_ID_SLEET,
-	RESOURCE_ID_SNOW,
-	RESOURCE_ID_WIND
-};
+static char icon_buffer[1];
 
 #define WEATHER_TEMPERATURE 0
 #define WEATHER_CONDITIONS 1
 #define WEATHER_CITY 2
 #define WEATHER_ICON 3
-
-static void set_image_icon(int resource)
-{
-	if (image != NULL)
-	{
-		gbitmap_destroy(image);
-		layer_remove_from_parent(bitmap_layer_get_layer(image_layer));
-		bitmap_layer_destroy(image_layer);
-	}
-	Layer *window_layer = window_get_root_layer(window);
-	image = gbitmap_create_with_resource(resource);
-	image_layer = bitmap_layer_create(GRect(10, 92, 60, 60));
-	bitmap_layer_set_bitmap(image_layer, image);
-	layer_add_child(window_layer, bitmap_layer_get_layer(image_layer));
-}
+#define STATUS 4
 
 static void sync_changed_handler(const uint32_t key, const Tuple *new_tuple, const Tuple *old_tuple, void *context)
 {
+	APP_LOG(APP_LOG_LEVEL_DEBUG, "sync_changed_handler() called (%u) = \"%s\"", (unsigned int) key, new_tuple->value->cstring);
 	switch (key)
 	{
 		case WEATHER_TEMPERATURE:
@@ -65,15 +38,17 @@ static void sync_changed_handler(const uint32_t key, const Tuple *new_tuple, con
 			text_layer_set_text(text_city_layer, new_tuple->value->cstring);
 			break;
 		case WEATHER_ICON:
-			set_image_icon(IMAGE_RESOURCE_IDS[new_tuple->value->int8]);
+			snprintf(icon_buffer, 1, "%c", new_tuple->value->uint8);
+			text_layer_set_text(text_icon_layer, icon_buffer);
 			break;
 	}
 }
 
 static void sync_error_handler(DictionaryResult dict_error, AppMessageResult app_message_error, void *context)
 {
+	APP_LOG(APP_LOG_LEVEL_ERROR, "sync_error_handler() called: dict_error = %d  app_message_error = %d", dict_error, app_message_error);
 	text_layer_set_text(text_cond_layer, "Error");
-	set_image_icon(RESOURCE_ID_ERROR);
+	text_layer_set_text(text_icon_layer, "b");
 }
 
 static void window_load(Window *window)
@@ -83,6 +58,7 @@ static void window_load(Window *window)
 	font49 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_49));
 	font39 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_39));
 	font21 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_21));
+	icons = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ICONS_48));
 
 	// create time layer - this is where time goes
 	text_time_layer = text_layer_create(GRect(8, 24, 128, 76));
@@ -120,6 +96,13 @@ static void window_load(Window *window)
 	text_layer_set_background_color(text_city_layer, GColorClear);
 	text_layer_set_font(text_city_layer, font39);
 	layer_add_child(window_layer, text_layer_get_layer(text_city_layer));
+
+	text_icon_layer = text_layer_create(GRect(10, 92, 60, 60));
+	text_layer_set_text_color(text_icon_layer, GColorWhite);
+	text_layer_set_text_alignment(text_icon_layer, GTextAlignmentCenter);
+	text_layer_set_background_color(text_icon_layer, GColorClear);
+	text_layer_set_font(text_icon_layer, icons);
+	layer_add_child(window_layer, text_layer_get_layer(text_icon_layer));
 }
 
 static void window_unload(Window *window)
@@ -130,21 +113,20 @@ static void window_unload(Window *window)
 	text_layer_destroy(text_temp_layer);
 	text_layer_destroy(text_cond_layer);
 	text_layer_destroy(text_city_layer);
-
-	// destroy the image layers
-	gbitmap_destroy(image);
-	layer_remove_from_parent(bitmap_layer_get_layer(image_layer));
-	bitmap_layer_destroy(image_layer);
+	text_layer_destroy(text_icon_layer);
 
 	// unload the fonts
 	fonts_unload_custom_font(font49);
 	fonts_unload_custom_font(font39);
 	fonts_unload_custom_font(font21);
+	fonts_unload_custom_font(icons);
 }
 
 // show the date and time every minute
 void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed)
 {
+	APP_LOG(APP_LOG_LEVEL_DEBUG, "handle_minute_tick() called...");
+
 	// Need to be static because they're used by the system later.
 	static char time_text[] = "00:00";
 	static char date_text[] = "Xxxxxxxxx 00";
@@ -171,6 +153,8 @@ void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed)
 
 static void init(void)
 {
+	APP_LOG(APP_LOG_LEVEL_DEBUG, "init() called...");
+
 	// create window
 	window = window_create();
 	window_set_background_color(window, GColorBlack);
@@ -188,14 +172,23 @@ static void init(void)
 		TupletCString(WEATHER_TEMPERATURE, "N/A"),
 		TupletCString(WEATHER_CONDITIONS, "Please wait..."),
 		TupletCString(WEATHER_CITY, "N/A"),
-		TupletInteger(WEATHER_ICON, 0)
+		TupletInteger(WEATHER_ICON, (uint8_t) 'a')
 	};
 
 	// Allocate sync buffer based on estimate
-	s_sync_buffer = (uint8_t*) malloc(dict_calc_buffer_size_from_tuplets(initial_values, 4) * 2);
+	size_t bytes = (size_t) dict_calc_buffer_size_from_tuplets(initial_values, 4) * 2;
+	APP_LOG(APP_LOG_LEVEL_DEBUG, "malloc() of %d bytes for sync buffer", bytes);
+	s_sync_buffer = (uint8_t*) malloc(bytes);
 
 	// Begin using AppSync
-	app_sync_init(&s_sync, s_sync_buffer, sizeof(s_sync_buffer), initial_values, ARRAY_LENGTH(initial_values), sync_changed_handler, sync_error_handler, NULL);
+	app_sync_init(&s_sync, s_sync_buffer, bytes, initial_values, ARRAY_LENGTH(initial_values), sync_changed_handler, sync_error_handler, NULL);
+
+	// send an initial update message
+	DictionaryIterator *iterator;
+	app_message_outbox_begin(&iterator);
+	int value = 0;
+	dict_write_int(iterator, STATUS, &value, sizeof(int), true);
+	app_message_outbox_send();
 
 	// subscribe to update every minute
 	tick_timer_service_subscribe(MINUTE_UNIT, handle_minute_tick);
