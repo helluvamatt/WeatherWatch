@@ -1,26 +1,36 @@
 {
-    "companyName": "SCHNEENET",
-    "longName": "WeatherWatch",
-    "projectType": "native",
-    "resources": {
-        "media": [
-            {
-                "characterRegex": "[0-9:]",
-                "file": "fonts/Roboto-Bold.ttf",
-                "name": "FONT_ROBOTO_BOLD_SUBSET_39",
-                "type": "font"
-            },
-            {
-                "characterRegex": "[0-9:]",
-                "file": "fonts/Roboto-Bold.ttf",
-                "name": "FONT_ROBOTO_BOLD_SUBSET_49",
-                "type": "font"
-            },
-            {
-                "file": "fonts/Roboto-Condensed.ttf",
-                "name": "FONT_ROBOTO_CONDENSED_21",
-                "type": "font"
-            },
+	"companyName": "SCHNEENET",
+	"longName": "WeatherWatch",
+	"projectType": "native",
+	"resources": {
+		"media": [
+			{
+				"characterRegex": "[0-9:]",
+				"file": "fonts/Roboto-Bold.ttf",
+				"name": "FONT_ROBOTO_BOLD_SUBSET_39",
+				"type": "font"
+			},
+			{
+				"characterRegex": "[0-9:]",
+				"file": "fonts/Roboto-Bold.ttf",
+				"name": "FONT_ROBOTO_BOLD_SUBSET_49",
+				"type": "font"
+			},
+			{
+				"file": "fonts/Roboto-Condensed.ttf",
+				"name": "FONT_ROBOTO_CONDENSED_24",
+				"type": "font"
+			},
+			{
+				"file": "fonts/Roboto-Condensed.ttf",
+				"name": "FONT_ROBOTO_CONDENSED_21",
+				"type": "font"
+			},
+			{
+				"file": "fonts/Roboto-Condensed.ttf",
+				"name": "FONT_ROBOTO_CONDENSED_18",
+				"type": "font"
+			},
 			{
 				"characterRegex": "[a-v]",
 				"file": "fonts/WeatherWatchIcons.ttf",
@@ -33,14 +43,14 @@
 				"menuIcon": true,
 				"type": "png"
 			}
-        ]
-    },
-    "sdkVersion": "2",
-    "shortName": "WeatherWatch",
-    "uuid": "455367bd-36cc-4f1d-8002-ff84b2356582",
-    "versionCode": 1,
-    "versionLabel": "1.0",
-    "watchapp": {
-        "watchface": true
-    }
+		]
+	},
+	"sdkVersion": "2",
+	"shortName": "WeatherWatch",
+	"uuid": "455367bd-36cc-4f1d-8002-ff84b2356582",
+	"versionCode": 1,
+	"versionLabel": "1.0",
+	"watchapp": {
+		"watchface": true
+	}
 }

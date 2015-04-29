@@ -7,15 +7,17 @@ TextLayer *text_temp_layer;
 TextLayer *text_cond_layer;
 TextLayer *text_city_layer;
 TextLayer *text_icon_layer;
-GFont *font49;
-GFont *font39;
-GFont *font21;
+GFont *font_time;
+GFont *font_temp;
+GFont *font_large;
+GFont *font_normal;
+GFont *font_small;
 GFont *icons;
 
 static AppSync s_sync;
 static uint8_t *s_sync_buffer;
 
-static char icon_buffer[1];
+static char icon_buffer[2];
 
 #define WEATHER_TEMPERATURE 0
 #define WEATHER_CONDITIONS 1
@@ -25,7 +27,6 @@ static char icon_buffer[1];
 
 static void sync_changed_handler(const uint32_t key, const Tuple *new_tuple, const Tuple *old_tuple, void *context)
 {
-	APP_LOG(APP_LOG_LEVEL_DEBUG, "sync_changed_handler() called (%u) = \"%s\"", (unsigned int) key, new_tuple->value->cstring);
 	switch (key)
 	{
 		case WEATHER_TEMPERATURE:
@@ -38,7 +39,8 @@ static void sync_changed_handler(const uint32_t key, const Tuple *new_tuple, con
 			text_layer_set_text(text_city_layer, new_tuple->value->cstring);
 			break;
 		case WEATHER_ICON:
-			snprintf(icon_buffer, 1, "%c", new_tuple->value->uint8);
+			snprintf(icon_buffer, 2, "%c", (char) new_tuple->value->uint8);
+			APP_LOG(APP_LOG_LEVEL_INFO, "icon_buffer is now \"%s\"", icon_buffer);
 			text_layer_set_text(text_icon_layer, icon_buffer);
 			break;
 	}
@@ -55,52 +57,55 @@ static void window_load(Window *window)
 {
 	Layer *window_layer = window_get_root_layer(window);
 
-	font49 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_49));
-	font39 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_39));
-	font21 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_21));
+	font_time = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_49));
+	font_temp = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_39));
+	font_large = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_24));
+	font_normal = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_21));
+	font_small = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_18));
 	icons = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ICONS_48));
 
-	// create time layer - this is where time goes
-	text_time_layer = text_layer_create(GRect(8, 24, 128, 76));
-	text_layer_set_text_alignment(text_time_layer, GTextAlignmentCenter);
-	text_layer_set_text_color(text_time_layer, GColorWhite);
-	text_layer_set_background_color(text_time_layer, GColorClear);
-	text_layer_set_font(text_time_layer, font49);
-	layer_add_child(window_layer, text_layer_get_layer(text_time_layer));
-
 	// create date layer - this is where the date goes
-	text_date_layer = text_layer_create(GRect(8, 0, 128, 24));
+	text_date_layer = text_layer_create(GRect(0, 0, 144, 24));
 	text_layer_set_text_alignment(text_date_layer, GTextAlignmentCenter);
 	text_layer_set_text_color(text_date_layer, GColorWhite);
 	text_layer_set_background_color(text_date_layer, GColorClear);
-	text_layer_set_font(text_date_layer, font21);
+	text_layer_set_font(text_date_layer, font_normal);
 	layer_add_child(window_layer, text_layer_get_layer(text_date_layer));
 
+	// create time layer - this is where time goes
+	text_time_layer = text_layer_create(GRect(0, 24, 144, 64));
+	text_layer_set_text_alignment(text_time_layer, GTextAlignmentCenter);
+	text_layer_set_text_color(text_time_layer, GColorWhite);
+	text_layer_set_background_color(text_time_layer, GColorClear);
+	text_layer_set_font(text_time_layer, font_time);
+	layer_add_child(window_layer, text_layer_get_layer(text_time_layer));
+
 	// create temperature layer - this is where the temperature goes
-	text_temp_layer = text_layer_create(GRect(80, 108, 84, 30));
-	text_layer_set_text_color(text_temp_layer, GColorWhite);
-	text_layer_set_background_color(text_temp_layer, GColorClear);
-	text_layer_set_font(text_temp_layer, font39);
+	text_temp_layer = text_layer_create(GRect(60, 88, 84, 40));
+	text_layer_set_text_color(text_temp_layer, GColorBlack);
+	text_layer_set_background_color(text_temp_layer, GColorWhite);
+	text_layer_set_font(text_temp_layer, font_large);
 	layer_add_child(window_layer, text_layer_get_layer(text_temp_layer));
 
 	// create conditions layer
-	text_cond_layer = text_layer_create(GRect(80, 138, 84, 15));
-	text_layer_set_text_color(text_cond_layer, GColorWhite);
-	text_layer_set_background_color(text_cond_layer, GColorClear);
-	text_layer_set_font(text_cond_layer, font39);
+	text_cond_layer = text_layer_create(GRect(60, 128, 84, 20));
+	text_layer_set_text_color(text_cond_layer, GColorBlack);
+	text_layer_set_background_color(text_cond_layer, GColorWhite);
+	text_layer_set_font(text_cond_layer, font_small);
 	layer_add_child(window_layer, text_layer_get_layer(text_cond_layer));
 
 	// create city name layer
-	text_city_layer = text_layer_create(GRect(80, 153, 84, 15));
-	text_layer_set_text_color(text_city_layer, GColorWhite);
-	text_layer_set_background_color(text_city_layer, GColorClear);
-	text_layer_set_font(text_city_layer, font39);
+	text_city_layer = text_layer_create(GRect(0, 148, 144, 20));
+	text_layer_set_text_color(text_city_layer, GColorBlack);
+	text_layer_set_background_color(text_city_layer, GColorWhite);
+	text_layer_set_font(text_city_layer, font_small);
 	layer_add_child(window_layer, text_layer_get_layer(text_city_layer));
 
-	text_icon_layer = text_layer_create(GRect(10, 92, 60, 60));
-	text_layer_set_text_color(text_icon_layer, GColorWhite);
+	// create icon layer
+	text_icon_layer = text_layer_create(GRect(0, 88, 60, 60));
+	text_layer_set_text_color(text_icon_layer, GColorBlack);
 	text_layer_set_text_alignment(text_icon_layer, GTextAlignmentCenter);
-	text_layer_set_background_color(text_icon_layer, GColorClear);
+	text_layer_set_background_color(text_icon_layer, GColorWhite);
 	text_layer_set_font(text_icon_layer, icons);
 	layer_add_child(window_layer, text_layer_get_layer(text_icon_layer));
 }
@@ -116,9 +121,11 @@ static void window_unload(Window *window)
 	text_layer_destroy(text_icon_layer);
 
 	// unload the fonts
-	fonts_unload_custom_font(font49);
-	fonts_unload_custom_font(font39);
-	fonts_unload_custom_font(font21);
+	fonts_unload_custom_font(font_time);
+	fonts_unload_custom_font(font_temp);
+	fonts_unload_custom_font(font_large);
+	fonts_unload_custom_font(font_normal);
+	fonts_unload_custom_font(font_small);
 	fonts_unload_custom_font(icons);
 }
 

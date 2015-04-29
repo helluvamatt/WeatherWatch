@@ -26,6 +26,7 @@
 								<option id="gnu.c.compiler.option.debugging.level.1344509689" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.1991342537" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="/home/matt/Development/Pebble/PebbleSDK-2.9/Pebble/include"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WeatherWatchPebble/build}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1792841156" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
