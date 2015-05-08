@@ -17,13 +17,13 @@
 			"properties": {
 				"id": 28,
 				"order": 105,
-				"prevSize": 24,
+				"prevSize": 60,
 				"code": 97,
 				"name": "cached"
 			},
 			"setIdx": 0,
 			"setId": 3,
-			"iconIdx": 28
+			"iconIdx": 0
 		},
 		{
 			"icon": {
@@ -41,13 +41,13 @@
 			"properties": {
 				"id": 163,
 				"order": 85,
-				"prevSize": 24,
+				"prevSize": 60,
 				"code": 98,
 				"name": "warning"
 			},
 			"setIdx": 0,
 			"setId": 3,
-			"iconIdx": 163
+			"iconIdx": 1
 		},
 		{
 			"icon": {
@@ -66,13 +66,13 @@
 			"properties": {
 				"id": 1,
 				"order": 89,
-				"prevSize": 32,
+				"prevSize": 60,
 				"name": "sun",
 				"code": 99
 			},
 			"setIdx": 1,
 			"setId": 2,
-			"iconIdx": 1
+			"iconIdx": 0
 		},
 		{
 			"icon": {
@@ -92,13 +92,13 @@
 			"properties": {
 				"id": 2,
 				"order": 90,
-				"prevSize": 32,
+				"prevSize": 60,
 				"name": "moon",
 				"code": 100
 			},
 			"setIdx": 1,
 			"setId": 2,
-			"iconIdx": 2
+			"iconIdx": 1
 		},
 		{
 			"icon": {
@@ -117,13 +117,13 @@
 			"properties": {
 				"id": 4,
 				"order": 99,
-				"prevSize": 32,
+				"prevSize": 60,
 				"name": "windy",
 				"code": 101
 			},
 			"setIdx": 1,
 			"setId": 2,
-			"iconIdx": 4
+			"iconIdx": 2
 		},
 		{
 			"icon": {
@@ -142,13 +142,13 @@
 			"properties": {
 				"id": 5,
 				"order": 100,
-				"prevSize": 32,
+				"prevSize": 60,
 				"name": "wind",
 				"code": 102
 			},
 			"setIdx": 1,
 			"setId": 2,
-			"iconIdx": 5
+			"iconIdx": 3
 		},
 		{
 			"icon": {
@@ -168,13 +168,13 @@
 			"properties": {
 				"id": 6,
 				"order": 101,
-				"prevSize": 32,
+				"prevSize": 60,
 				"name": "snowflake",
 				"code": 103
 			},
 			"setIdx": 1,
 			"setId": 2,
-			"iconIdx": 6
+			"iconIdx": 4
 		},
 		{
 			"icon": {
@@ -193,13 +193,13 @@
 			"properties": {
 				"id": 7,
 				"order": 96,
-				"prevSize": 32,
+				"prevSize": 60,
 				"name": "cloudy",
 				"code": 104
 			},
 			"setIdx": 1,
 			"setId": 2,
-			"iconIdx": 7
+			"iconIdx": 5
 		},
 		{
 			"icon": {
@@ -219,13 +219,13 @@
 			"properties": {
 				"id": 8,
 				"order": 97,
-				"prevSize": 32,
+				"prevSize": 60,
 				"name": "cloud",
 				"code": 105
 			},
 			"setIdx": 1,
 			"setId": 2,
-			"iconIdx": 8
+			"iconIdx": 6
 		},
 		{
 			"icon": {
@@ -245,13 +245,13 @@
 			"properties": {
 				"id": 12,
 				"order": 98,
-				"prevSize": 32,
+				"prevSize": 60,
 				"name": "lines",
 				"code": 106
 			},
 			"setIdx": 1,
 			"setId": 2,
-			"iconIdx": 12
+			"iconIdx": 7
 		},
 		{
 			"icon": {
@@ -271,13 +271,13 @@
 			"properties": {
 				"id": 17,
 				"order": 103,
-				"prevSize": 32,
+				"prevSize": 60,
 				"name": "rainy2",
 				"code": 107
 			},
 			"setIdx": 1,
 			"setId": 2,
-			"iconIdx": 17
+			"iconIdx": 8
 		},
 		{
 			"icon": {
@@ -297,13 +297,13 @@
 			"properties": {
 				"id": 20,
 				"order": 94,
-				"prevSize": 32,
+				"prevSize": 60,
 				"name": "snowy",
 				"code": 108
 			},
 			"setIdx": 1,
 			"setId": 2,
-			"iconIdx": 20
+			"iconIdx": 9
 		},
 		{
 			"icon": {
@@ -323,13 +323,13 @@
 			"properties": {
 				"id": 21,
 				"order": 95,
-				"prevSize": 32,
+				"prevSize": 60,
 				"name": "snowy2",
 				"code": 109
 			},
 			"setIdx": 1,
 			"setId": 2,
-			"iconIdx": 21
+			"iconIdx": 10
 		},
 		{
 			"icon": {
@@ -349,13 +349,13 @@
 			"properties": {
 				"id": 22,
 				"order": 93,
-				"prevSize": 32,
+				"prevSize": 60,
 				"name": "snowy3",
 				"code": 110
 			},
 			"setIdx": 1,
 			"setId": 2,
-			"iconIdx": 22
+			"iconIdx": 11
 		},
 		{
 			"icon": {
@@ -374,13 +374,13 @@
 			"properties": {
 				"id": 23,
 				"order": 92,
-				"prevSize": 32,
+				"prevSize": 60,
 				"name": "weather4",
 				"code": 111
 			},
 			"setIdx": 1,
 			"setId": 2,
-			"iconIdx": 23
+			"iconIdx": 12
 		},
 		{
 			"icon": {
@@ -400,13 +400,13 @@
 			"properties": {
 				"id": 24,
 				"order": 91,
-				"prevSize": 32,
+				"prevSize": 60,
 				"name": "cloudy2",
 				"code": 112
 			},
 			"setIdx": 1,
 			"setId": 2,
-			"iconIdx": 24
+			"iconIdx": 13
 		},
 		{
 			"icon": {
@@ -426,13 +426,13 @@
 			"properties": {
 				"id": 25,
 				"order": 104,
-				"prevSize": 32,
+				"prevSize": 60,
 				"name": "cloud3",
 				"code": 113
 			},
 			"setIdx": 1,
 			"setId": 2,
-			"iconIdx": 25
+			"iconIdx": 14
 		},
 		{
 			"icon": {
@@ -451,19 +451,16 @@
 			"properties": {
 				"id": 42,
 				"order": 102,
-				"prevSize": 32,
+				"prevSize": 60,
 				"name": "thermometer",
 				"code": 114
 			},
 			"setIdx": 1,
 			"setId": 2,
-			"iconIdx": 42
+			"iconIdx": 15
 		}
 	],
 	"height": 1024,
-	"metadata": {
-		"name": "icomoon"
-	},
 	"preferences": {
 		"showGlyphs": true,
 		"showQuickUse": true,
@@ -471,34 +468,27 @@
 		"showSVGs": true,
 		"fontPref": {
 			"prefix": "icon-",
-			"metadata": {
-				"fontFamily": "icomoon",
-				"majorVersion": 1,
-				"minorVersion": 0
-			},
+			"metadata": {},
 			"metrics": {
 				"emSize": 1024,
 				"baseline": 6.25,
 				"whitespace": 50
-			},
-			"showMetrics": false,
-			"showVersion": false,
-			"showMetadata": false,
-			"resetPoint": 97
+			}
 		},
 		"imagePref": {
 			"prefix": "icon-",
 			"png": true,
 			"useClassSelector": true,
-			"color": 4473924,
-			"bgColor": 16777215,
+			"color": 16777215,
+			"bgColor": 0,
 			"classSelector": ".icon",
 			"columns": 16,
 			"margin": 16,
-			"height": 32
+			"height": 32,
+			"pdf": true,
+			"addBgColor": true
 		},
 		"historySize": 100,
-		"showCodes": true,
-		"showLiga": false
+		"showCodes": false
 	}
 }
