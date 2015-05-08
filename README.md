@@ -1,6 +1,6 @@
 # WeatherWatch
 
-WeatherWatch Pebble watchface
+WeatherWatch [**Pebble watchface**] [[Companion Android app](https://github.com/helluvamatt/android-WeatherWatch)]
 
 ## Building
 
