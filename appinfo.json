@@ -22,8 +22,8 @@
                 "type": "font"
             },
 			{
-				"characterRegex": "[a-r]",
-				"file": "fonts/icons.ttf",
+				"characterRegex": "[a-v]",
+				"file": "fonts/WeatherWatchIcons.ttf",
 				"name": "FONT_ICONS_48",
 				"type": "font"
 			},
