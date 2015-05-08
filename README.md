@@ -12,8 +12,15 @@ Enable debugging in the Pebble app on your phone, then run:
 
     $ pebble build && pebble install --phone <IP address of Pebble development server (on phone)>
 
+## History
+
+This project was forked from [JerrySievert/pebble-weather-watchface](https://github.com/JerrySievert/pebble-weather-watchface) in order to add features.
+
+At this point there are no plans to commercialize or monetize this application or it's companion Android app.
+
 ## License
 
+```
 The MIT License (MIT)
 
 Copyright (c) 2015 Matt Schneeberger (helluvamatt@gmail.com)
@@ -35,3 +42,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+```
