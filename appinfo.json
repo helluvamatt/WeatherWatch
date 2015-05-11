@@ -32,15 +32,119 @@
 				"type": "font"
 			},
 			{
-				"characterRegex": "[a-v]",
-				"file": "fonts/WeatherWatchIcons.ttf",
-				"name": "FONT_ICONS_48",
-				"type": "font"
-			},
-			{
 				"file": "images/icon.png",
 				"name": "APP_ICON",
 				"menuIcon": true,
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/clear_day.png",
+				"name": "IC_CLEAR_DAY",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/clear_night.png",
+				"name": "IC_CLEAR_NIGHT",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/cloudy.png",
+				"name": "IC_CLOUDY",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/cold.png",
+				"name": "IC_COLD",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/error.png",
+				"name": "IC_ERROR",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/fog.png",
+				"name": "IC_FOG",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/fog_alt.png",
+				"name": "IC_FOG_ALT",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/hail_sleet.png",
+				"name": "IC_HAIL_SLEET",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/heavy_snow.png",
+				"name": "IC_HEAVY_SNOW",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/heavy_storm.png",
+				"name": "IC_HEAVY_STORM",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/hot.png",
+				"name": "IC_HOT",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/light_rain.png",
+				"name": "IC_LIGHT_RAIN",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/light_snow.png",
+				"name": "IC_LIGHT_SNOW",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/mostly_cloudy.png",
+				"name": "IC_MOSTLY_CLOUDY",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/na.png",
+				"name": "IC_NA",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/partly_cloudy_day.png",
+				"name": "IC_PARTLY_CLOUDY_DAY",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/partly_cloudy_night.png",
+				"name": "IC_PARTLY_CLOUDY_NIGHT",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/rain.png",
+				"name": "IC_RAIN",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/refresh.png",
+				"name": "IC_REFRESH",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/snow.png",
+				"name": "IC_SNOW",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/storm.png",
+				"name": "IC_STORM",
+				"type": "png"
+			},
+			{
+				"file": "images/weather_icons/wind.png",
+				"name": "IC_WIND",
 				"type": "png"
 			}
 		]
